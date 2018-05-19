@@ -43,7 +43,7 @@ keys=$( seq "${DNSCRYPT_CERT_FILE_HISTORY_SIZE}" | sed -r "s/^(.*)$/${host}-${po
 timeout -t "$((${DNSCRYPT_CERT_FILE_ROTATION_INTERVAL}+${DNSCRYPT_CERT_FILE_ROTATION_TIMEOUT}))" -s SIGKILL \
 timeout -t "${DNSCRYPT_CERT_FILE_ROTATION_INTERVAL}" -s SIGTERM \
 	dnscrypt-wrapper \
-		--resolver-address=127.0.0.1:53 \
+		--resolver-address="${DNSCRYPT_RESOLVER_ADDRESS}" \
 		--listen-address="${host}:${port}" \
 		--provider-name="${DNSCRYPT_PROVIDER_NAME}" \
 		--crypt-secretkey-file="${keys}" \
