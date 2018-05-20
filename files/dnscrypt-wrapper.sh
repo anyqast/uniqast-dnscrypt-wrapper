@@ -15,14 +15,14 @@ rollkeys() {
 genkey() {
 	dnscrypt-wrapper \
 		--gen-crypt-keypair \
-		--crypt-secretkey-file="${host}-${port}-0.key" &> /dev/null
+		--crypt-secretkey-file="${host}-${port}-0.key" &> /dev/null || exit 1
 	dnscrypt-wrapper \
 		--gen-cert-file \
 		--crypt-secretkey-file="${host}-${port}-0.key" \
 		--provider-cert-file="${host}-${port}-0.crt" \
 		--provider-publickey-file=public.key \
 		--provider-secretkey-file=secret.key \
-		--cert-file-expire-days="${DNSCRYPT_CERT_FILE_EXPIRE_DAYS}" &> /dev/null
+		--cert-file-expire-days="${DNSCRYPT_CERT_FILE_EXPIRE_DAYS}" &> /dev/null || exit 1
 }
 
 if test -r "${host}-${port}-${DNSCRYPT_CERT_FILE_HISTORY_SIZE}.key"; then
