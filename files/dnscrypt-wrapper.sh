@@ -39,7 +39,8 @@ fi
 certs=$(seq "${DNSCRYPT_CERT_FILE_HISTORY_SIZE}" | sed -r "s/^(.*)$/${host}-${port}-\1.crt/" | tr '\n' ',' | head -c-1)
 keys=$( seq "${DNSCRYPT_CERT_FILE_HISTORY_SIZE}" | sed -r "s/^(.*)$/${host}-${port}-\1.key/" | tr '\n' ',' | head -c-1)
 
-# echo \
+echo "${host}" | fgrep -q : && host="[${host}]"
+
 timeout -t "$((${DNSCRYPT_CERT_FILE_ROTATION_INTERVAL}+${DNSCRYPT_CERT_FILE_ROTATION_TIMEOUT}))" -s SIGKILL \
 timeout -t "${DNSCRYPT_CERT_FILE_ROTATION_INTERVAL}" -s SIGTERM \
 	dnscrypt-wrapper \
