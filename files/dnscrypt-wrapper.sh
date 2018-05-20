@@ -28,6 +28,7 @@ genkey() {
 if test -r "${host}-${port}-${DNSCRYPT_CERT_FILE_HISTORY_SIZE}.key"; then
 	echo "Rolling key cert pair for ${host}:${port} ..."
 	rollkeys
+	genkey
 else
 	echo "Rolling multiple key cert pairs for ${host}:${port} ..."
 	while ! test -r "${host}-${port}-${DNSCRYPT_CERT_FILE_HISTORY_SIZE}.key"; do
