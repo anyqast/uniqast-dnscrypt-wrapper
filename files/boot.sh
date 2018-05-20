@@ -29,8 +29,15 @@ test -z "${SECRET_KEY}" && initkeys
 echo "${PUBLIC_KEY}" | base64 -d > "./public.key"
 echo "${SECRET_KEY}" | base64 -d > "./secret.key"
 
+for host in ${DNSCRYPT_HOSTS}; do
+	for port in ${DNSCRYPT_PORTS}; do
+		DNSCRYPT_HOST_PORTS="${DNSCRYPT_HOST_PORTS}
+${host} ${port}"
+	done
+done
+
 id=0
-echo "${DNSCRYPT_HOST_PORTS}" | while read host port; do
+echo "${DNSCRYPT_HOST_PORTS}" | grep -vE '^$' | while read host port; do
 	id="$((${id}+1))"
 	(
 		echo "[program:dnscrypt-wrapper-${id}]"
