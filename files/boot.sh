@@ -36,6 +36,8 @@ ${host} ${port}"
 	done
 done
 
+mkdir /tmp/supervisor.d/
+
 id=0
 echo "${DNSCRYPT_HOST_PORTS}" | grep -vE '^$' | while read host port; do
 	id="$((${id}+1))"
@@ -45,7 +47,7 @@ echo "${DNSCRYPT_HOST_PORTS}" | grep -vE '^$' | while read host port; do
 		echo "stdout_logfile=/dev/fd/1"
 		echo "stdout_logfile_maxbytes=0"
 		echo "redirect_stderr=true"
-	) > "/etc/supervisor.d/dnscrypt-wrapper-${id}.ini"
+	) > "/tmp/supervisor.d/dnscrypt-wrapper-${id}.ini"
 done
 
 exec "/usr/bin/supervisord" "-kc/etc/supervisord.conf"
