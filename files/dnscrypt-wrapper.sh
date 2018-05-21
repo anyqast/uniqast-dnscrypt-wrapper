@@ -40,11 +40,11 @@ fi
 certs=$(seq "${DNSCRYPT_CERT_FILE_HISTORY_SIZE}" | sed -r "s/^(.*)$/${host}-${port}-\1.crt/" | tr '\n' ',' | head -c-1)
 keys=$( seq "${DNSCRYPT_CERT_FILE_HISTORY_SIZE}" | sed -r "s/^(.*)$/${host}-${port}-\1.key/" | tr '\n' ',' | head -c-1)
 
-echo "${host}" | fgrep -q : && host="[${host}]"
-
 while test "$(ip route get ${host} | head -n 1 | cut -d' ' -f1)" != "local"; do
 	sleep 0.5
 done
+
+echo "${host}" | fgrep -q : && host="[${host}]"
 
 timeout -t "$((${DNSCRYPT_CERT_FILE_ROTATION_INTERVAL}+${DNSCRYPT_CERT_FILE_ROTATION_TIMEOUT}))" -s SIGKILL \
 timeout -t "${DNSCRYPT_CERT_FILE_ROTATION_INTERVAL}" -s SIGTERM \
