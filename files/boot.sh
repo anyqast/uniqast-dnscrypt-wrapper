@@ -47,6 +47,7 @@ echo "${DNSCRYPT_HOST_PORTS}" | grep -vE '^$' | while read host port; do
 		echo "stdout_logfile=/dev/fd/1"
 		echo "stdout_logfile_maxbytes=0"
 		echo "redirect_stderr=true"
+		echo "autorestart=true"
 	) > "/tmp/supervisor.d/dnscrypt-wrapper-${id}.ini"
 done
 
