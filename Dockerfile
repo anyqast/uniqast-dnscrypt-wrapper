@@ -1,7 +1,7 @@
 FROM alpine:edge
 RUN apk upgrade --no-cache \
  && apk add --no-cache libsodium libevent make autoconf gcc musl-dev bsd-compat-headers libevent-dev libsodium-dev supervisor \
- && wget -O- https://github.com/cofyc/dnscrypt-wrapper/archive/v0.4.1.tar.gz | tar -xz \
+ && wget -O- https://github.com/cofyc/dnscrypt-wrapper/archive/v0.4.2.tar.gz | tar -xz \
  && cd dnscrypt-wrapper-0.4.1/ \
  && make \
  && make install \
